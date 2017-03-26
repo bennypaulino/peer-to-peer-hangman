@@ -37,18 +37,7 @@ window.onload = function () {
       letters.appendChild(list);
     }
   }
-    
   
-  // Select Catagory
-  var selectCat = function () {
-    if (chosenCategory === categories[0]) {
-      catagoryName.innerHTML = "The Chosen Category Is Premier League Football Teams";
-    } else if (chosenCategory === categories[1]) {
-      catagoryName.innerHTML = "The Chosen Category Is Films";
-    } else if (chosenCategory === categories[2]) {
-      catagoryName.innerHTML = "The Chosen Category Is Cities";
-    }
-  }
 
   // Create geusses ul
    result = function () {
@@ -286,8 +275,10 @@ SkylinkDemo.on('incomingMessage', function(message, peerId, peerInfo, isSelf){
   var incomingMessage = message.content;
 
 if (incomingMessage.type === "guess"){
-
+document.getElementById("guess").innerHTML = "The letter " + incomingMessage.guessValue + " was guessed" +
+"Is this correct?";
 }  
+
 
 if (incomingMessage.type === "validation"){
 

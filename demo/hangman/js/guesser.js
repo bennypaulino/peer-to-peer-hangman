@@ -147,6 +147,14 @@ window.onload = function () {
       var geuss = (this.innerHTML);
       this.setAttribute("class", "active");
       this.onclick = null;
+      //console.log(this)
+      //console.log(geuss)
+
+var message = {};
+message.type = "guess"
+message.guessValue = geuss;
+ SkylinkDemo.sendP2PMessage(message);
+
       for (var i = 0; i < word.length; i++) {
         if (word[i] === geuss) {
           geusses[i].innerHTML = geuss;
@@ -164,6 +172,8 @@ window.onload = function () {
     }
   }
   
+
+
     
   // Play
   play = function () {
@@ -185,7 +195,6 @@ window.onload = function () {
     space = 0;
     result();
     comments();
-    selectCat();
     canvas();
   }
 
