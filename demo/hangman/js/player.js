@@ -223,6 +223,25 @@ message.wordlength = word.length
 }
 
 
+document.getElementById('yes').onclick = function(){
+var message = {};
+message.type = "validation"
+message.value = "Correct"
+SkylinkDemo.sendP2PMessage(message);
+}
+
+
+document.getElementById('no').onclick = function(){
+var message = {};
+message.type = "validation"
+message.value = "Incorrect"
+// lives = 9;
+// animate();
+frame1();
+
+SkylinkDemo.sendP2PMessage(message);
+}
+
 var global_peerId;
 
 
@@ -278,6 +297,8 @@ if (incomingMessage.type === "guess"){
 document.getElementById("guess").innerHTML = "The letter " + incomingMessage.guessValue + " was guessed" +
 "Is this correct?";
 }  
+
+
 
 
 if (incomingMessage.type === "validation"){

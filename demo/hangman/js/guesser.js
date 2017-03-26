@@ -155,20 +155,20 @@ message.type = "guess"
 message.guessValue = geuss;
  SkylinkDemo.sendP2PMessage(message);
 
-      for (var i = 0; i < word.length; i++) {
-        if (word[i] === geuss) {
-          geusses[i].innerHTML = geuss;
-          counter += 1;
-        } 
-      }
-      var j = (word.indexOf(geuss));
-      if (j === -1) {
-        lives -= 1;
-        comments();
-        animate();
-      } else {
-        comments();
-      }
+      // for (var i = 0; i < word.length; i++) {
+      //   if (word[i] === geuss) {
+      //     geusses[i].innerHTML = geuss;
+      //     counter += 1;
+      //   } 
+      // }
+      // var j = (word.indexOf(geuss));
+      // if (j === -1) {
+      //   lives -= 1;
+      //   // comments();
+      //   animate();
+      // } else {
+      //   // comments();
+      // }
     }
   }
   
@@ -194,7 +194,7 @@ message.guessValue = geuss;
     counter = 0;
     space = 0;
     result();
-    comments();
+    // comments();
     canvas();
   }
 
@@ -268,7 +268,17 @@ if (incomingMessage.type === "guess"){
 }  
 
 if (incomingMessage.type === "validation"){
-  
+ if(incomingMessage.value === "Correct"){
+
+ }
+
+
+ if(incomingMessage.value === "Incorrect"){
+  lives -=1;
+  animate();
+ }
+
+
 }
 
   console.log(message.content)
