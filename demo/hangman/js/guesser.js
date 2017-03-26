@@ -6,7 +6,6 @@ window.onload = function () {
   
   var categories;         // Array of topics
   var chosenCategory;     // Selected catagory
-  var getHint ;          // Word getHint
   var word ;              // Selected word
   var guess ;             // Geuss
   var geusses = [ ];      // Stored geusses
@@ -17,9 +16,6 @@ window.onload = function () {
   // Get elements
   var showLives = document.getElementById("mylives");
   var showCatagory = document.getElementById("scatagory");
-  var getHint = document.getElementById("hint");
-  var showClue = document.getElementById("clue");
-
 
 
   // create alphabet ul
@@ -38,17 +34,6 @@ window.onload = function () {
     }
   }
     
-  
-  // Select Catagory
-  var selectCat = function () {
-    if (chosenCategory === categories[0]) {
-      catagoryName.innerHTML = "The Chosen Category Is Premier League Football Teams";
-    } else if (chosenCategory === categories[1]) {
-      catagoryName.innerHTML = "The Chosen Category Is Films";
-    } else if (chosenCategory === categories[2]) {
-      catagoryName.innerHTML = "The Chosen Category Is Cities";
-    }
-  }
 
   // Create geusses ul
    result = function () {
@@ -208,19 +193,6 @@ window.onload = function () {
   
   // Hint
 
-    hint.onclick = function() {
-
-      hints = [
-        ["Based in Mersyside", "Based in Mersyside", "First Welsh team to reach the Premier Leauge", "Owned by A russian Billionaire", "Once managed by Phil Brown", "2013 FA Cup runners up", "Gazza's first club"],
-        ["Science-Fiction horror film", "1971 American action film", "Historical drama", "Anamated Fish", "Giant great white shark"],
-        ["Northern city in the UK", "Home of AC and Inter", "Spanish capital", "Netherlands capital", "Czech Republic capital"]
-    ];
-
-    var catagoryIndex = categories.indexOf(chosenCategory);
-    var hintIndex = chosenCategory.indexOf(word);
-    showClue.innerHTML = "Clue: - " +  hints [catagoryIndex][hintIndex];
-  };
-
    // Reset
 
   document.getElementById('reset').onclick = function() {
@@ -230,8 +202,6 @@ window.onload = function () {
     context.clearRect(0, 0, 400, 400);
     play();
   }
-
-
 
 
 
@@ -276,6 +246,28 @@ SkylinkDemo.on('peerLeft', function (peerId, peerInfo, isSelf) {
     console.error('Peer audio element for ' + peerId + ' does not exists');
   }
 });
+
+SkylinkDemo.on('incomingMessage', function(message, peerId, peerInfo, isSelf){
+  var incomingMessage = message.content;
+  if(incomingMessage.type === "start"){
+          catagoryName.innerHTML = "The Chosen Category Is " + incomingMessage.category;
+          document.getElementById ("startGuessing").innerHTML = "Start Guessing!";
+  }
+
+if (incomingMessage.type === "guess"){
+
+}  
+
+if (incomingMessage.type === "validation"){
+  
+}
+
+  console.log(message.content)
+
+});
+
+
+
 
 SkylinkDemo.init(config, function (error, success) {
   if (error) {

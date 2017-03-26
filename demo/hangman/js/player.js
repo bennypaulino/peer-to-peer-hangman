@@ -204,22 +204,9 @@ window.onload = function () {
     canvas();
   }
 
-  play();
+  // play();
   
   // Hint
-
-    hint.onclick = function() {
-
-      hints = [
-        ["Based in Mersyside", "Based in Mersyside", "First Welsh team to reach the Premier Leauge", "Owned by A russian Billionaire", "Once managed by Phil Brown", "2013 FA Cup runners up", "Gazza's first club"],
-        ["Science-Fiction horror film", "1971 American action film", "Historical drama", "Anamated Fish", "Giant great white shark"],
-        ["Northern city in the UK", "Home of AC and Inter", "Spanish capital", "Netherlands capital", "Czech Republic capital"]
-    ];
-
-    var catagoryIndex = categories.indexOf(chosenCategory);
-    var hintIndex = chosenCategory.indexOf(word);
-    showClue.innerHTML = "Clue: - " +  hints [catagoryIndex][hintIndex];
-  };
 
    // Reset
 
@@ -231,17 +218,34 @@ window.onload = function () {
     play();
   }
 
+document.getElementById('submit').onclick = function() {
+    var peer = document.getElementById(global_peerId);
+    // .innerHTML = "Hello World";
+
+var message = {};
+message.type = "start"
+message.category = document.getElementById("category").value;
 
 
+var word = document.getElementById("word").value;
+message.wordlength = word.length  
+
+ SkylinkDemo.sendP2PMessage(message);
+}
 
 
+var global_peerId;
 
 
 //skylink stuff
   var SkylinkDemo = new Skylink();
+  // SkylinkDemo.setLogLevel(4);
 
 SkylinkDemo.on('incomingStream', function (peerId, stream, isSelf, peerInfo) {
   var peer = document.createElement('div');
+  if(!isSelf){
+    global_peerId = peerId;
+  }  
   peer.id = peerId;
   peer.style.border = 'solid 2px #444';
   peer.style.borderRadius = '15px';
@@ -265,6 +269,7 @@ SkylinkDemo.on('incomingStream', function (peerId, stream, isSelf, peerInfo) {
   peer.appendChild(peerVoice);
   peer.appendChild(peerName);
   attachMediaStream(peerVoice, stream);
+  
   peerVoice.play();
 });
 
@@ -275,6 +280,21 @@ SkylinkDemo.on('peerLeft', function (peerId, peerInfo, isSelf) {
   } else {
     console.error('Peer audio element for ' + peerId + ' does not exists');
   }
+});
+
+SkylinkDemo.on('incomingMessage', function(message, peerId, peerInfo, isSelf){
+  var incomingMessage = message.content;
+
+if (incomingMessage.type === "guess"){
+
+}  
+
+if (incomingMessage.type === "validation"){
+
+}
+
+  console.log(message.content)
+
 });
 
 SkylinkDemo.init(config, function (error, success) {
